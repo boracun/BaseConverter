@@ -9,5 +9,5 @@ Here are some pictures from the program:
 
 
 
-<img src="https://github.com/boracun/BaseConverter/blob/master/BC1.png" />
-<img src="https://github.com/boracun/BaseConverter/blob/master/BC2.png" />
+<img src="https://github.com/boracun/BaseConverter/blob/master/Images/BC1.png" />
+<img src="https://github.com/boracun/BaseConverter/blob/master/Images/BC2.png" />
