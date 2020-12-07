@@ -1,0 +1,17 @@
+//import java.awt.event.*;
+//
+//public class KeyboardListener implements ActionListener
+//{
+//  private String number;
+//  
+//  public KeyboardListener ( String a )
+//  {
+//    number = a;
+//    
+//  }
+//  
+//  public void actionPerformed( ActionEvent event )
+//  {
+//    System.out.println( number );
+//  }
+//}

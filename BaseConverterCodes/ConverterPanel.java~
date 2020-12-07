@@ -1,0 +1,94 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+/**
+ * This class is a subclass of JPanel class. It creates and fills a panel with JLabel and JTextField
+ * components to form a 3 by 2 Grid Layout
+ * @author Bora Çün
+ * @version 12.11.2019
+ */ 
+
+public class ConverterPanel extends JPanel
+{
+  //Constants
+  
+  //Instance Variables
+  private JTextField decimalField;
+  private JLabel label;
+  private JTextField hexField;
+  private JTextField binaryField;
+  private ActionListener listener;
+  private String number;
+  private BaseConverter converter;
+  
+  //Constructors
+  public ConverterPanel()
+  {
+    super();
+    this.listener = new KeyboardListener();
+    this.converter = new BaseConverter();
+    this.createTextFields(); 
+    this.fillPanel();
+  }
+  
+  //Methods
+  
+  /**
+   * Sets a Grid Layout for the panel and fills it with needed components
+   */
+  public void fillPanel()
+  {
+    this.setLayout( new GridLayout( 3, 2 ) );            //(3x2) GridLayout for the panel
+    
+    this.add( this.createLabel( "Decimal", 100, 100 ) );  //Creates and adds the Label for Decimal
+    this.add( this.decimalField );                        //Adds the text field for the decimal
+    this.add( this.createLabel( "Hex", 100, 100 ) );      //Creates and adds the Label for Hex
+    this.add( this.hexField );                            //Adds the text field for hex
+    this.add( this.createLabel( "Binary", 100, 100 ) );   //Creates and adds the Label for Binary
+    this.add( this.binaryField );                         //Adds the text field for binary
+  }
+  
+  public JLabel createLabel( String name, int x, int y )
+  {
+    JLabel aLabel = new JLabel( name );
+    aLabel.setPreferredSize( new Dimension( x, y ) );
+    return aLabel;
+  }
+  
+  public void createTextFields()
+  {
+    this.decimalField = new JTextField( 50 );
+    this.hexField = new JTextField( 50 );
+    this.binaryField = new JTextField( 50 );
+    
+    decimalField.addActionListener ( listener );
+    hexField.addActionListener ( listener );
+    binaryField.addActionListener ( listener );
+  }
+  
+  public class KeyboardListener implements ActionListener
+  {
+    public void actionPerformed( ActionEvent event )
+    {
+      if ( event.getSource() == decimalField )
+      {
+        hexField.setText( converter.decToHex( decimalField.getText() ) );
+        binaryField.setText( converter.decToBin( decimalField.getText() ) );
+      }
+      
+      else if ( event.getSource() == hexField )
+      {
+        decimalField.setText( converter.hexToDec( hexField.getText() ) );
+        binaryField.setText( converter.hexToBin( hexField.getText() ) );
+      }
+      
+      else if ( event.getSource() == binaryField )
+      {
+        decimalField.setText( converter.binToDec( binaryField.getText() ) );
+        hexField.setText( converter.binToHex( binaryField.getText() ) );
+      }
+        
+    }
+  }
+}

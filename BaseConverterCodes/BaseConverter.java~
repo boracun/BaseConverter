@@ -1,0 +1,176 @@
+import java.util.ArrayList;
+
+public class BaseConverter
+{
+  /**
+   * This class provides methods to convert decimal, binary, and hexadecimal numbers to each other.
+   * @author Bora Çün
+   * @version 13.11.2019
+   */ 
+  
+  //Constructor
+  
+  /**
+   * Do-nothing constructor
+   */
+  public BaseConverter()
+  {
+  }
+  
+  
+  //Methods
+  
+  /**
+   * Converts a decimal to binary
+   * @param decimal Decimal number to be converted
+   * @return Returns the binary number
+   */
+  public String decToBin ( String decimal )
+  {
+    String bin = "";                                        //Create an empty String to store new binary number
+    int dec = Integer.parseInt( decimal );                  //Turn the decimal from String to int
+    ArrayList<Integer> binList = new ArrayList<Integer>();  //An ArrayList to store the characters of binary
+    
+    while ( dec != 0 )         //As long as the decimal is not 0       
+    {
+      binList.add( 0, ( dec % 2 ) );     //Get the remainder of decimal from division by two and add it to index 0 of the list
+      dec = dec / 2;                     //Divide the decimal by two and update it
+    }
+    
+    for ( int i = 0; i < binList.size(); i++ ) //Go through binList
+    {
+      bin = bin + binList.get(i);             //Form the binary number with elements of the list
+    }
+    
+    return bin;
+  }
+  
+  /**
+   * Converts a binary to decimal
+   * @param bin Binary number to be converted
+   * @return Returns the decimal number
+   */
+  public String binToDec( String bin )
+  {
+    int dec = 0;
+    
+    for ( int i = 0; i < bin.length(); i++ )
+    {
+      int step = Integer.parseInt( bin.substring( bin.length() - 1 ) ); 
+      bin = bin.substring( 0, bin.length() - 1 );
+      dec = dec + step * (int) Math.pow( 2, i );
+    }
+    
+    return "" + dec;
+  }
+  
+  /**
+   * Converts a decimal to hexadecimal
+   * @param decimal Decimal number to be converted
+   * @return Returns the hexadecimal number
+   */
+  public String decToHex( String decimal )
+  {
+    int dec = Integer.parseInt( decimal );
+    String hex = "";
+    ArrayList<String> hexList = new ArrayList<String>();
+    int remainder;
+    
+    while ( dec != 0 )
+    {
+      remainder = dec % 16;
+      hexList.add( 0, hexLetters( remainder ) );
+      dec = dec / 16;
+    }
+    
+    for ( int i = 0; i < hexList.size(); i++ )
+    {
+      hex = hex + hexList.get( i );
+    }
+    
+    return hex;
+  }
+  
+  /**
+   * Converts a hexadecimal to decimal
+   * @param hex Hexadecimal number to be converted
+   * @return Returns the decimal number
+   */
+  public String hexToDec( String hex )
+  {
+    int dec = 0;
+    
+    for ( int i = 0; i < hex.length(); i++ )
+    {
+      dec = dec + Integer.parseInt( hexNumbers( hex.charAt( hex.length() - i - 1 ) ) ) * (int) Math.pow( 16, i );
+    }
+    
+    return "" + dec;
+  }
+  
+  /**
+   * Converts a binary number to a hexadecimal number
+   * @param binary The number to be converted
+   * @return Returns the hexadecimal number
+   */
+  public String binToHex( String binary )
+  {
+    return this.decToHex( this.binToDec( binary ) );
+  }
+  
+  /**
+   * Converts a hexadecimal to binary
+   * @param hex Hexadecimal number to be converted
+   * @return Returns the binary number
+   */
+  public String hexToBin( String hex )
+  {
+    return this.decToBin( this.hexToDec( hex ) );
+  }
+  
+  /**
+   * A static method to get the corresponding letters for hexadecimal production
+   * @param num The number to be converted to a letter or to stay same
+   * @return Returns the corresponding letter or number
+   */
+  public static String hexLetters( int num )
+  {
+    if ( num == 10 )
+      return "A";
+    else if ( num == 11 )
+      return "B";
+    else if ( num == 12 )
+      return "C";
+    else if ( num == 13 )
+      return "D";
+    else if ( num == 14 )
+      return "E";
+    else if ( num == 15 )
+      return "F";
+    else
+      return "" + num;
+  }
+  
+  /**
+   * Static method to turn hex letters to decimal numbers
+   * @param c The character to turn
+   * @return Returns the corresponding decimal number
+   */
+  public static String hexNumbers( char c )
+  {
+    if ( c == 'A' || c == 'a' )
+      return "10";
+    else if ( c == 'B' || c == 'b' )
+      return "11";
+    else if ( c == 'C' || c == 'c' )
+      return "12";
+    else if ( c == 'D' || c == 'd' )
+      return "13";
+    else if ( c == 'E' || c == 'e' )
+      return "14";
+    else if ( c == 'F' || c == 'f' )
+      return "15";
+    else
+      return "" + c;
+  }
+}
